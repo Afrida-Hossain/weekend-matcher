@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +7,21 @@ import { Form } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
- public random = 5;
-  constructor() { }
+  public weekends = new FormControl('');
+  public intervals = new FormControl('');
+  public startFrom = new FormControl('');
+  public noOfMatches = new FormControl('');
+
+  public formGroup;
+
+  constructor() {
+    this.formGroup = new FormGroup({ 
+      'weekends': this.weekends,
+      'intervals': this.intervals,
+      'startFrom': this.startFrom,
+      'noOfMatches': this.noOfMatches
+     });
+  }
 
   ngOnInit(): void {
   }
