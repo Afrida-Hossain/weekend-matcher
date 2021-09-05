@@ -26,4 +26,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  submitForm() {
+    console.log(this.formGroup.controls);
+  }
 }
