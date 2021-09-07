@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WeekendMatcherService } from '../service/weekend-matcher.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   public formGroup;
 
-  constructor() {
+  constructor(private weekendMatcherService: WeekendMatcherService) {
     this.formGroup = new FormGroup({ 
       'weekends': this.weekends,
       'intervals': this.intervals,
@@ -27,6 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.formGroup.controls);
+    this.weekendMatcherService.calculate(this.formGroup);
   }
 }
