@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConstraintResult } from '../../models/constraintResult';
-import { Constraint } from '../../models/constraints';
+import { ConstraintResult } from 'src/app/models/constraintResult';
+import { Constraint } from 'src/app/models/constraints';
 
 @Injectable({
   providedIn: 'root'
