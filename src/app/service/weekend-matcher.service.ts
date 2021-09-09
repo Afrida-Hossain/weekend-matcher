@@ -10,9 +10,22 @@ export class WeekendMatcherService {
 
   constructor() { }
 
-  public calculate (formGroup: FormGroup): ConstraintResult {
+  public calculate (formGroup: FormGroup): Date[] {
     const constraint = new Constraint(formGroup);
-    console.log(constraint);
-    return new ConstraintResult(new Array(new Date()));
+
+    let result = [];
+    let matches = 0;
+    let currentDay = new Date(constraint.startDate);
+
+    while(matches < constraint.matches) {
+      currentDay = new Date(currentDay.setDate(currentDay.getDate() + constraint.intervals));
+      console.log(currentDay);
+      if (constraint.weekends.indexOf(currentDay.getDay().toString()) != -1) {
+        result.push(new Date(currentDay));
+        matches++;
+      }
+    }
+
+    return result;
   }
 }

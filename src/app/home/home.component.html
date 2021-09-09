@@ -4,7 +4,15 @@
   <label class="form-label">
     Weekends:
   </label>
-  <input class="form-control" formControlName="weekends" type="text">
+  <select multiple class="select" formControlName="allWeekends">
+    <option value=0>Sunday</option>
+    <option value=1>Monday</option>
+    <option value=2>Tueday</option>
+    <option value=3>Wednesday</option>
+    <option value=4>Thursday</option>
+    <option value=5>Friday</option>
+    <option value=6>Saturday</option>
+  </select>
 </div>
 <div class="row">
   <label class="form-label">
@@ -26,4 +34,8 @@
 </div>
 <button type="submit" class="btn btn-dark">Find out!</button>
 </form>
+</div>
+
+<div *ngIf="isShowResult">
+  <li *ngFor="let result of results">{{result}}</li>
 </div>

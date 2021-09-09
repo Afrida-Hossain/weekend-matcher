@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConstraintResult } from '../models/constraintResult';
+import { WEEKDAYS } from '../models/WEEKDAYS';
 import { WeekendMatcherService } from '../service/weekend-matcher.service';
 
 @Component({
@@ -8,19 +10,23 @@ import { WeekendMatcherService } from '../service/weekend-matcher.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public weekends = new FormControl('');
-  public intervals = new FormControl('');
-  public startFrom = new FormControl('');
-  public noOfMatches = new FormControl('');
+  public allWeekends = new FormControl([], Validators.required);
+  public intervals = new FormControl(5);
+  public startFrom = new FormControl(Validators.required);
+  public noOfMatches = new FormControl(1);
 
   public formGroup;
 
+  public weekdays = WEEKDAYS;
+  public results: Date[] = [];
+  public isShowResult = false;
+
   constructor(private weekendMatcherService: WeekendMatcherService) {
     this.formGroup = new FormGroup({ 
-      'weekends': this.weekends,
       'intervals': this.intervals,
       'startFrom': this.startFrom,
-      'noOfMatches': this.noOfMatches
+      'noOfMatches': this.noOfMatches,
+      'allWeekends': this.allWeekends
      });
   }
 
@@ -28,6 +34,9 @@ export class HomeComponent implements OnInit {
   }
 
   submitForm() {
-    this.weekendMatcherService.calculate(this.formGroup);
+   this.results = this.weekendMatcherService.calculate(this.formGroup);
+   if (this.results.length > 0) {
+     this.isShowResult = true;
+   }
   }
 }
